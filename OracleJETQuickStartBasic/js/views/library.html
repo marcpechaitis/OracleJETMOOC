@@ -1,0 +1,58 @@
+<!--
+ Copyright (c) 2014, 2016, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<h1>Library Content</h1>
+<table id="table" summary="Task List" aria-label="Task List"
+       data-bind="ojComponent: {component: 'ojTable',
+                                data: datasource,
+                                ready: monitorAxisWidth,
+                                columns: [{headerText: 'Task Id',
+                                           field: 'id'},
+                                          {headerText: 'Task Name',
+                                           field: 'name'},
+                                          {headerTemplate: 'timeaxisTmpl',
+                                           template: 'taskbarTmpl',
+                                           style: 'width: 1000px'}]}">
+</table>
+ 
+<!-- template for column header -->
+<script type="text/html" id="timeaxisTmpl">
+  <th id="timeAxis" class="timeaxis-container">
+    <div data-bind="ojComponent: {component: 'ojTimeAxis',
+                                  scale: 'months', 
+                                  start: projectStartDate, 
+                                  end: projectEndDate}" 
+         style="height:38px">
+    </div>
+    <div data-bind="ojComponent: {component: 'ojTimeAxis',
+                                  scale: 'weeks', 
+                                  start: projectStartDate, 
+                                  end: projectEndDate}" 
+         style="height:38px">
+    </div>
+  </th>
+</script>
+
+<!-- template for the chart bar column -->
+<script type="text/html" id="taskbarTmpl">
+  <td class="demo-chart-row-container">
+    <div class="demo-chart-task" role="group"
+         data-bind="style: { left: isRTL ? 0 : getPosition($data.start) + 'px', 
+                             right: isRTL ? getPosition($data.start) + 'px' : 0}">
+      <div class="demo-task-item demo-task-bar" role="img" alt="blue task bar"
+           data-bind="style: { width: getLength($data.start, $data.end) + 'px' },
+                      attr: { 'aria-label': getAriaLabel($data) }">
+      </div>
+      <div class="demo-task-item demo-progress-bar" role="img" alt="dark progress bar"
+           data-bind="style: { width: getLength($data.start, $data.progress) + 'px' }">
+      </div>
+      <div class="demo-task-item demo-task-label" 
+           data-bind="style: { left: isRTL ? 0 : getLength($data.start, $data.end) + 'px' ,
+                               right: isRTL ? getLength($data.start, $data.end) + 'px' : 0 }">
+        <span data-bind="text: $data.description + '&nbsp;'"></span>
+        <span class="demo-progress-label" data-bind="text: getProgress($data.start, $data.end, $data.progress) + '%'"></span>
+      </div>
+    </div>
+  </td>
+</script>
