@@ -5,7 +5,7 @@
 /**
  * Main content module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojpictochart'],
+define(['ojs/ojcore', 'knockout', 'ojs/ojtable'],
   function(oj, ko) {
    /**
     * The view model for the main content view template.  Please note that since
@@ -15,12 +15,26 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojpictochart'],
     */
     function mainContentViewModel() {
         var self = this;
-        self.pictoChartItems = ko.observableArray([
-        {name: 'Have Sleep Problems', shape: 'human', count:7, color: '#ed6647'},
-        {name: 'Sleep Well', shape: 'human', count: 3}
-      ]);
+        self.currentSelection = ko.observable();
+        var deptArray = [{DepartmentId: 1001, DepartmentName: 'ADFPM 1001 neverending', LocationId: 200, ManagerId: 300},
+            {DepartmentId: 556, DepartmentName: 'BB', LocationId: 200, ManagerId: 300},
+            {DepartmentId: 10, DepartmentName: 'Administration', LocationId: 200, ManagerId: 300},
+            {DepartmentId: 20, DepartmentName: 'Marketing', LocationId: 200, ManagerId: 300},
+            {DepartmentId: 100, DepartmentName: 'Administration12', LocationId: 200, ManagerId: 300},
+            {DepartmentId: 110, DepartmentName: 'Marketing13', LocationId: 200, ManagerId: 300},
+            {DepartmentId: 120, DepartmentName: 'Purchasing14', LocationId: 200, ManagerId: 300},
+            {DepartmentId: 130, DepartmentName: 'Human Resources15', LocationId: 200, ManagerId: 300}];
+        self.datasource = new oj.ArrayTableDataSource(deptArray, {idAttribute: 'DepartmentId'});
+        self.selectedItem = ko.pureComputed(function (ctx) {
+            if (self.currentSelection()) {
+                var value = deptArray[self.currentSelection()[0].startIndex.row];
+                return value.DepartmentName;
+            }
+            else {
+                return "Nothing selected";
+            }
+        });
     }
-
-   
+    
     return new mainContentViewModel();
 });

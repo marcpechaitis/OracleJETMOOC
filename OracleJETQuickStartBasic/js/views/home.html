@@ -3,17 +3,22 @@
  The Universal Permissive License (UPL), Version 1.0
  -->
 <h1>Home Content Area</h1>
-<div  id="picto-container">
-  <div id='pc1' data-bind="ojComponent:{
-      component: 'ojPictoChart',
-      items: pictoChartItems,
-      animationOnDisplay: 'auto',
-      columnCount: 5
-    }"
-    style="vertical-align:middle; margin-right:15px">
-  </div>
-  <div style="display:inline-block; vertical-align:middle; font-weight:bold">
-    <span style="color:#333333; font-size:1.1em">7 out of 10 college students</span><br>
-    <span style="color:#ed6647; font-size:1.3em">have sleep problems.</span>
-  </div>
+<div id="mainContent">
+    <table id="table" summary="Department List" aria-label="Departments Table"
+    data-bind="ojComponent: {component: 'ojTable', 
+        data: datasource, 
+        selection: currentSelection,
+        selectionMode: {row: 'single', column: 'none'},
+        columnsDefault: {sortable: 'none'}, 
+        columns: [{headerText: 'Department Id', 
+                   field: 'DepartmentId'},
+                  {headerText: 'Department Name', 
+                   field: 'DepartmentName'},
+                  {headerText: 'Location Id', 
+                   field: 'LocationId'},
+                  {headerText: 'Manager Id', 
+                   field: 'ManagerId'}]}">
+    </table>
+    <br/><br/>
+    Selected: <span data-bind="text: selectedItem"></span>
 </div>
