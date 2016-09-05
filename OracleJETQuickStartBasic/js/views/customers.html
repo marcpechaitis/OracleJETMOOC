@@ -20,4 +20,24 @@
     width:45%;">
 </div>
 
-Current value: <input data-bind="value: value10"></span>
+Current value: <input data-bind="value: value10"></input>
+
+<div id="gauge" title="Value: 20<br>Reference Lines: Low 33, Medium 67, High 100" data-bind="ojComponent: {
+    component: 'ojStatusMeterGauge', 
+    min: 0, 
+    max: 100, 
+    value: value1, 
+    optionChange: gaugeOptionChange,
+    metricLabel: {rendered: 'on'},
+    plotArea: {rendered: 'on'},
+    referenceLines: 
+    [{value: 33, color:'mistyrose'}, 
+    {value: 67, color:'green'}],
+    indicatorSize: 0.5, 
+    readOnly: false
+    }"
+    style="margin-top:5px;margin-bottom:5px;
+    height:20px;width:100%;">
+</div>
+
+Current color: <input data-bind="value: valueColor"></input>
